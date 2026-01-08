@@ -162,7 +162,7 @@ body {
    FONDO INICIAL (PORTADA)
    ========================= */
 body.start-background {
-  background-image: url("../imagenes/portada.jpg");
+  background-image: url("../imagenes/portada.png");
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
