@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const imagesFolder = "./imagenes/";
+  const body = document.body;
 
   // Si viene role=..., es VISTA JUGADOR
   const params = new URLSearchParams(window.location.search);
@@ -8,16 +9,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const playerView = document.getElementById("player-view");
   const hostView = document.getElementById("host-view");
 
+  // =========================
+  // VISTA JUGADOR
+  // =========================
   if (roleParam) {
+    // En jugador NO queremos el fondo de portada
+    body.classList.remove("start-background");
+
     renderPlayerView(roleParam, imagesFolder);
     playerView.classList.remove("hidden");
     hostView.classList.add("hidden");
     return;
   }
 
-  // Si no hay role, es VISTA HOST
+  // =========================
+  // VISTA HOST (INICIO)
+  // =========================
   hostView.classList.remove("hidden");
   playerView.classList.add("hidden");
+
+  // Fondo de portada solo al inicio (setup)
+  body.classList.add("start-background");
 
   // Host UI
   const setupPanel = document.getElementById("setup-panel");
@@ -51,6 +63,9 @@ document.addEventListener("DOMContentLoaded", () => {
     shuffleInPlace(rolesDeck);
 
     currentIndex = 0;
+
+    // Al arrancar el reparto, sacamos el fondo para priorizar contraste del QR
+    body.classList.remove("start-background");
 
     setupPanel.classList.add("hidden");
     dealingPanel.classList.remove("hidden");
@@ -87,6 +102,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setupPanel.classList.remove("hidden");
 
     qrImg.removeAttribute("src");
+
+    // Volvemos al inicio -> vuelve el fondo
+    body.classList.add("start-background");
   });
 
   function renderCurrentQR() {
@@ -97,6 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Construimos URL del jugador: misma página, con role=
     const url = new URL(window.location.href);
+
+    // Limpia params viejos por las dudas (ej: si recargaste con cosas raras)
+    url.searchParams.delete("role");
     url.searchParams.set("role", role);
 
     const qrUrl = buildQrApiUrl(url.toString(), 260);
@@ -150,11 +171,13 @@ function renderPlayerView(role, imagesFolder) {
 
   const found = roleMap[role];
   if (!found) {
+    img.removeAttribute("src");
     img.alt = "Rol desconocido";
     txt.textContent = "Rol inválido.";
     return;
   }
 
   img.src = `${imagesFolder}${found.file}`;
+  img.alt = found.label;
   txt.textContent = found.label;
 }
