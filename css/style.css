@@ -162,21 +162,23 @@ body {
    FONDO INICIAL (PORTADA)
    ========================= */
 body.start-background {
-  background-image: url("../imagenes/portada.png");
+  background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
+    url("../imagenes/portada.png");
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+/* =========================
+   TEXTO SOBRE PORTADA
+   ========================= */
+body.start-background .host-title {
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
 
-/* Overlay oscuro para legibilidad */
-body.start-background::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(
-    rgba(0,0,0,0.55),
-    rgba(0,0,0,0.75)
-  );
-  z-index: -1;
+body.start-background .host-subtitle {
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
