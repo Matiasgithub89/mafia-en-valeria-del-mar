@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Mafia en Valeria del Mar</title>
+
+  <!-- Bootstrap (opcional, para modal/estética) -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+  />
+
+  <link rel="stylesheet" href="css/style.css?v=1" />
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- =======================
+         VISTA JUGADOR (solo rol)
+         ======================= -->
+    <section id="player-view" class="view hidden">
+      <div class="player-card">
+        <div class="player-title">Tu rol</div>
+        <img id="player-role-img" class="player-role-img" alt="Rol" />
+        <div id="player-role-text" class="player-role-text"></div>
+
+        <div class="player-hint">
+          Guardalo en secreto. Cuando todos tengan su rol, vuelvan al host.
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================
+         VISTA HOST
+         ======================= -->
+    <section id="host-view" class="view hidden">
+      <header class="host-header">
+        <h1 class="host-title">🕵️ Mafia en Valeria del Mar</h1>
+        <p class="host-subtitle">
+          El host reparte roles mostrando un QR por turno. El host no juega.
+        </p>
+      </header>
+
+      <!-- SETUP -->
+      <div id="setup-panel" class="panel">
+        <label class="form-label" for="playersCount">Cantidad de jugadores (mínimo 4)</label>
+
+        <div class="setup-row">
+          <input
+            id="playersCount"
+            type="number"
+            min="4"
+            max="40"
+            value="6"
+            class="form-control setup-input"
+          />
+          <button id="startBtn" class="btn btn-primary setup-btn">Iniciar reparto</button>
+        </div>
+
+        <div class="setup-note">
+          Roles: 1 Mafia, 1 Doctor, 1 Detective, resto Pueblo.
+        </div>
+      </div>
+
+      <!-- DEALING -->
+      <div id="dealing-panel" class="panel hidden">
+        <div class="deal-top">
+          <div class="deal-progress">
+            Jugador <span id="currentPlayer">1</span> de <span id="totalPlayers">6</span>
+          </div>
+          <div class="deal-instructions">
+            Que el jugador escanee el QR para ver su rol.
+          </div>
+        </div>
+
+        <div class="qr-box">
+          <img id="qrImg" class="qr-img" alt="QR del jugador" />
+        </div>
+
+        <div class="deal-actions">
+          <button id="nextBtn" class="btn btn-success">Siguiente jugador</button>
+          <button id="restartBtn" class="btn btn-outline-secondary">Reiniciar</button>
+        </div>
+
+        <div class="deal-footnote">
+          Tip: Pediles que vuelvan atrás cuando vean su rol, y pasá al siguiente.
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Dependencias (solo si querés bootstrap scripts; no son necesarias para esto) -->
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <script src="scripts/script.js?v=1"></script>
+</body>
+</html>
